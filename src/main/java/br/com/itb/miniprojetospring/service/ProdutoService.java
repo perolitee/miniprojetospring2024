@@ -40,9 +40,21 @@ public class ProdutoService {
 	public Produto update(Produto _produto) {
 		Produto produtoEncontrado = produtoRepository.findAllById(_produto.getId());
 		if(produtoEncontrado.getId() > 0)
-			return produtoRepository.save(_produto);
+			return produtoRepository.save(produtoEncontrado);
 		else
 			return new Produto(0, "Produto não encontrado");
+	}
+
+	@Transactional
+	public boolean delete(Produto _produto) {
+		boolean sucesso = false;
+		Produto produtoEncontrado = produtoRepository.findAllById(_produto.getId());
+		if(produtoEncontrado.getId() > 0) {
+			produtoRepository.deleteById(produtoEncontrado.getId());
+			sucesso = true;
+		}
+
+		return sucesso;
 	}
 
 }

@@ -41,5 +41,11 @@ public class ProdutoController {
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(produtoService.update(produto));
 	}
+
+	@DeleteMapping
+	public ResponseEntity<Object> deleteProduto(@RequestBody Produto produto){
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(produtoService.delete(produto));
+	}
 	
 }
