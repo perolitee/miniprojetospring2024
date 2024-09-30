@@ -2,7 +2,6 @@ node('master || built-in') {
 
 	try {
 
-
 		stage('SCM') {
 
 			git branch: 'main',
@@ -17,7 +16,7 @@ node('master || built-in') {
 
 		stage('SonarQube analysis') {
 
-			withSonarQubeEnv('sonarqube') {
+			withSonarQubeEnv('main') {
 
 				sh 'mvn sonar:sonar -Dsonar.projectKey=My-Pipeline -Dsonar.host.url=http://127.0.0.1:9000 -Dsonar.login=sqp_4a899e5c5fb0e85f9475555eccfdc54ca5b7f665'
 
