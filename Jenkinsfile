@@ -5,7 +5,7 @@
 		stage('SCM') {
 
 			git branch: 'main',
-			credentialsId: 'sonarqube',
+			credentialsId: 'programadormovel',
 			url: 'https://github.com/programadormovel/miniprojetospring2024.git'
 		}
 
