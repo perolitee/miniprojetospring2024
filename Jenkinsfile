@@ -7,7 +7,7 @@ node('master || built-in') {
 
 			git branch: 'main',
 			credentialsId: 'sonarqube',
-			url: 'https://github.com/programadormovel/cadastro-produto-react'
+			url: 'https://github.com/programadormovel/miniprojetospring2024.git'
 		}
 
 		stage('Mvn Package'){
