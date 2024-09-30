@@ -1,4 +1,4 @@
-node("master") {
+node('master || built-in') {
 
 	try {
 
