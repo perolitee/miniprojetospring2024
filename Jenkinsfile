@@ -1,36 +1,69 @@
-('main') {
+pipeline {
+    agent any
 
-	try {
+    environment {
+        // Definir variáveis de ambiente do SonarQube
+        SONARQUBE_SERVER = 'SonarQube' // Nome da instância do SonarQube configurada no Jenkins
+        GITHUB_REPO = 'https://github.com/programadormovel/miniprojetospring2024.git'
+    }
 
-		stage('SCM') {
+    stages {
+        stage('Checkout') {
+            steps {
+                // Clonar o repositório do GitHub
+                git branch: 'main', url: env.GITHUB_REPO
+            }
+        }
 
-			git branch: 'main',
-			credentialsId: 'programadormovel',
-			url: 'https://github.com/programadormovel/miniprojetospring2024.git'
-		}
+        stage('Build') {
+            steps {
+                // Compilar o projeto (substitua 'mvn clean install' pelo comando adequado para seu projeto)
+                sh 'mvn clean install'
+            }
+        }
 
-		stage('Mvn Package'){
+        stage('SonarQube Analysis') {
+            environment {
+                // Variáveis SonarQube
+                SONAR_SCANNER_HOME = tool 'SonarQube Scanner' // Nome do scanner configurado no Jenkins
+            }
+            steps {
+                // Executar a análise do SonarQube
+                withSonarQubeEnv(env.SONARQUBE_SERVER) {
+                    sh "${env.SONAR_SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=miniprojetospring2024 -Dsonar.sources=src -Dsonar.java.binaries=target"
+                }
+            }
+        }
 
-			sh 'mvn clean package'
-		}
+        stage('Quality Gate') {
+            steps {
+                // Aguardar e verificar o status da análise do SonarQube
+                timeout(time: 1, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
 
-		stage('SonarQube analysis') {
+        stage('Deploy') {
+            steps {
+                // Executar o deploy do projeto (modifique conforme necessário para seu ambiente)
+                echo 'Deploy do projeto iniciado...'
+                // Exemplo: script de deploy ou comando específico
+                // sh 'bash deploy_script.sh'
+            }
+        }
+    }
 
-			withSonarQubeEnv() {
-
-				sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=miniprojetospring2024 -Dsonar.host.url=http://127.0.0.1:9000 -Dsonar.login=sqp_4a899e5c5fb0e85f9475555eccfdc54ca5b7f665'
-
-			}
-
-		}
-
-
-
-
-	}catch (e) {
-
-		throw e
-	}
-
-
+    post {
+        always {
+            // Enviar e-mails ou notificação de falha
+            echo 'Pipeline finalizado!'
+        }
+        success {
+            echo 'Deploy realizado com sucesso!'
+        }
+        failure {
+            echo 'Falha no pipeline!'
+        }
+    }
 }
