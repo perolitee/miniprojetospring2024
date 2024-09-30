@@ -1,4 +1,4 @@
-node("main") {
+node("master") {
 
 	try {
 
