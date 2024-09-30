@@ -1,4 +1,4 @@
-('master' || 'built-in' || 'main') {
+('main') {
 
 	try {
 
