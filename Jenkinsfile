@@ -27,10 +27,10 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            environment {
-                // Variáveis SonarQube
-                SONAR_SCANNER_HOME = tool 'SonarQube Scanner' // Nome do scanner configurado no Jenkins
-            }
+//             environment {
+//                 // Variáveis SonarQube
+//                 SONAR_SCANNER_HOME = tool 'SonarQube Scanner' // Nome do scanner configurado no Jenkins
+//             }
             steps {
                 // Executar a análise do SonarQube
                 withSonarQubeEnv('sonarqube') {
