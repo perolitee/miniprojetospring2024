@@ -33,7 +33,7 @@ pipeline {
             }
             steps {
                 // Executar a análise do SonarQube
-                withSonarQubeEnv('sonar') {
+                withSonarQubeEnv('sonarqube') {
                     sh "mvn clean verify sonar:sonar -Dsonar.projectKey=miniprojetospring2024 -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_4a899e5c5fb0e85f9475555eccfdc54ca5b7f665"
 //                     sh "${env.SONAR_SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=miniprojetospring2024 -Dsonar.sources=src -Dsonar.java.binaries=target"
                 }
