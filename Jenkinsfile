@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Definir variáveis de ambiente do SonarQube
-        SONARQUBE_SERVER = 'SonarQube' // Nome da instância do SonarQube configurada no Jenkins
+        SONARQUBE_SERVER = 'sonarqube' // Nome da instância do SonarQube configurada no Jenkins
         GITHUB_REPO = 'https://github.com/programadormovel/miniprojetospring2024.git'
     }
 
