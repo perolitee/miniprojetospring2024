@@ -23,7 +23,7 @@ pipeline {
                     // Compilar o projeto (substitua 'mvn clean install' pelo comando adequado para seu projeto)
                     sh 'mvn clean install'
 //                     sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=miniprojetospring'
-                    sh "mvn clean verify sonar:sonar -Dsonar.projectKey=miniprojetospring2024 -Dsonar.sources=. -Dsonar.host.url=http://192.168.0.2:9000 -Dsonar.login=sqp_3ceadd0b157eef45c001a8fe35a23d55d613f453"
+                    sh "mvn clean verify sonar:sonar -Dsonar.projectKey=miniprojetospring -Dsonar.sources=. -Dsonar.host.url=http://192.168.0.2:9000 -Dsonar.login=sqp_3ceadd0b157eef45c001a8fe35a23d55d613f453"
                 }
             }
         }
