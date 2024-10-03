@@ -18,7 +18,7 @@ pipeline {
         stage('Build') {
 
             steps {
-                withMaven(globalMavenSettingsConfig: '', jdk: '1.8', maven: '3.2.5', mavenSettingsConfig: '', publisherStrategy: 'EXPLICIT', traceability: true) {
+                withMaven(globalMavenSettingsConfig: '', jdk: '11', maven: '3.2.5', mavenSettingsConfig: '', publisherStrategy: 'EXPLICIT', traceability: true) {
                     // some block
                     // Compilar o projeto (substitua 'mvn clean install' pelo comando adequado para seu projeto)
                     sh 'mvn clean install'
