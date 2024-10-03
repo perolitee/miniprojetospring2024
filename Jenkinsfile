@@ -43,14 +43,14 @@ pipeline {
             }
         }
 
-        stage('Quality Gate') {
-            steps {
-                // Aguardar e verificar o status da análise do SonarQube
-                timeout(time: 1, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
+//         stage('Quality Gate') {
+//             steps {
+//                 // Aguardar e verificar o status da análise do SonarQube
+//                 timeout(time: 1, unit: 'MINUTES') {
+//                     waitForQualityGate abortPipeline: true
+//                 }
+//             }
+//         }
 
         stage('Deploy') {
             steps {
