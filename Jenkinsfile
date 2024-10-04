@@ -24,7 +24,7 @@ pipeline {
             }
             steps {
                 withMaven(globalMavenSettingsConfig: '', jdk: '11', maven: '3.9.4', mavenSettingsConfig: '', publisherStrategy: 'EXPLICIT', traceability: true) {
-                    ECHO ''${env.useSonar}
+                    ECHO "VALIDAÇÃO SONAR SERÁ REALIZADA = ${env.useSonar}"
                     sh 'mvn clean install'
                }
             }
