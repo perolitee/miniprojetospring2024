@@ -35,7 +35,9 @@ pipeline {
                 SONAR_SCANNER_HOME = tool 'SonarQube Scanner'
             }
             when {
-                env.useSonar == true
+                anyOf {
+                    expression { env.useSonar == true }
+                }
             }
             steps {
                 withSonarQubeEnv(env.SONARQUBE_SERVER) {
@@ -46,7 +48,9 @@ pipeline {
 
         stage("Quality Gate") {
             when {
-                env.useSonar == true
+                anyOf {
+                    expression { env.useSonar == true }
+                }
             }
             steps {
                 timeout(time: 1, unit: 'HOURS') {
