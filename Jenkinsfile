@@ -24,7 +24,7 @@ pipeline {
             }
             steps {
                 withMaven(globalMavenSettingsConfig: '', jdk: '11', maven: '3.9.4', mavenSettingsConfig: '', publisherStrategy: 'EXPLICIT', traceability: true) {
-                    ECHO "VALIDAÇÃO SONAR SERÁ REALIZADA = ${env.useSonar}"
+                    ECHO "VALIDAÇÃO SONAR = ${env.useSonar}"
                     sh 'mvn clean install'
                }
             }
@@ -34,24 +34,19 @@ pipeline {
             environment {
                 SONAR_SCANNER_HOME = tool 'SonarQube Scanner'
             }
-            when {
-                anyOf {
-                    expression { env.useSonar == true }
-                }
-            }
             steps {
                 withSonarQubeEnv(env.SONARQUBE_SERVER) {
-                    sh "${env.SONAR_SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=miniprojetospring -Dsonar.host.url=http://192.168.0.2:9000 -Dsonar.login=sqp_3ceadd0b157eef45c001a8fe35a23d55d613f453 -Dsonar.sources=src/main/java/ -Dsonar.java.binaries=target/classes"
+                    if (params.useSonar){
+                        sh "${env.SONAR_SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=miniprojetospring -Dsonar.host.url=http://192.168.0.2:9000 -Dsonar.login=sqp_3ceadd0b157eef45c001a8fe35a23d55d613f453 -Dsonar.sources=src/main/java/ -Dsonar.java.binaries=target/classes"
+                    } else {
+                        ECHO "VALIDAÇÃO SONAR NÃO SERÁ REALIZADA = ${env.useSonar}"
+                    }
+
                 }
             }
         }
 
         stage("Quality Gate") {
-            when {
-                anyOf {
-                    expression { env.useSonar == true }
-                }
-            }
             steps {
                 timeout(time: 1, unit: 'HOURS') {
                     // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
