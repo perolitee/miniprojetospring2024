@@ -35,7 +35,7 @@ pipeline {
             }
             when {
                 anyOf {
-                    expression { params.useSonar == env.DO_SCANNER }
+                    expression { env.useSonar == true }
                 }
             }
             steps {
@@ -48,7 +48,7 @@ pipeline {
         stage("Quality Gate") {
             when {
                 anyOf {
-                    expression { params.useSonar == env.DO_SCANNER }
+                    expression { env.useSonar == true }
                 }
             }
             steps {
