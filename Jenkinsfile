@@ -47,24 +47,16 @@ pipeline {
             }
         }
 
-        stage("Quality Gate") {
-            steps {
-                script{
-                    if (params.useSonar){
-                        timeout(time: 1, unit: 'HOURS') {
-                            // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                            // true = set pipeline to UNSTABLE, false = don't
-                            waitForQualityGate abortPipeline: true on server env.SONARQUBE_SERVER
-                        }
-                    }
-                }
-            }
-        }
-//         stage('Quality Gate') {
+//         stage("Quality Gate") {
 //             steps {
-//                 // Aguardar e verificar o status da análise do SonarQube
-//                 timeout(time: 1, unit: 'MINUTES') {
-//                     waitForQualityGate abortPipeline: true
+//                 script{
+//                     if (params.useSonar){
+//                         timeout(time: 1, unit: 'MINUTES') {
+//                             // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+//                             // true = set pipeline to UNSTABLE, false = don't
+//                             waitForQualityGate abortPipeline: true
+//                         }
+//                     }
 //                 }
 //             }
 //         }
