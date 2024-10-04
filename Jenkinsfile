@@ -8,6 +8,7 @@ pipeline {
     environment {
         SONARQUBE_SERVER = 'sonarqube'
         GITHUB_REPO = 'https://github.com/programadormovel/miniprojetospring2024.git'
+        DO_SCANNER = true
     }
 
     stages {
@@ -31,7 +32,6 @@ pipeline {
         stage('SonarQube Analysis') {
             environment {
                 SONAR_SCANNER_HOME = tool 'SonarQube Scanner'
-                DO_SCANNER = true
             }
             when {
                 anyOf {
