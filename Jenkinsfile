@@ -24,6 +24,7 @@ pipeline {
             }
             steps {
                 withMaven(globalMavenSettingsConfig: '', jdk: '11', maven: '3.9.4', mavenSettingsConfig: '', publisherStrategy: 'EXPLICIT', traceability: true) {
+                    ECHO ''${env.useSonar}
                     sh 'mvn clean install'
                }
             }
@@ -34,9 +35,7 @@ pipeline {
                 SONAR_SCANNER_HOME = tool 'SonarQube Scanner'
             }
             when {
-                anyOf {
-                    expression { env.useSonar == true }
-                }
+                env.useSonar == true
             }
             steps {
                 withSonarQubeEnv(env.SONARQUBE_SERVER) {
@@ -47,9 +46,7 @@ pipeline {
 
         stage("Quality Gate") {
             when {
-                anyOf {
-                    expression { env.useSonar == true }
-                }
+                env.useSonar == true
             }
             steps {
                 timeout(time: 1, unit: 'HOURS') {
