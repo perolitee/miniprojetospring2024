@@ -46,6 +46,11 @@ pipeline {
         }
 
         stage("Quality Gate") {
+            when {
+                anyOf {
+                    expression { params.useSonar == env.DO_SCANNER }
+                }
+            }
             steps {
                 timeout(time: 1, unit: 'HOURS') {
                     // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
