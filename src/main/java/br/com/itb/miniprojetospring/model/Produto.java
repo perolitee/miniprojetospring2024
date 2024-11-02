@@ -51,6 +51,7 @@ public class Produto {
 		} else if(nome != null && !nome.equals("")){
 			this.nome = nome;
 		}
+
 	}
 	public String getDescricao() {
 		return descricao;
