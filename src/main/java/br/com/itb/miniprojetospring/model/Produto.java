@@ -32,6 +32,7 @@ public class Produto {
 	private String categoria;
 	private String destaque;
 	private String statusProd;
+
 	
 	// CRIAR GETTERS E SETTERS
 	public long getId() {
