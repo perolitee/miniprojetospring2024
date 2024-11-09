@@ -10,4 +10,5 @@ class MiniprojetospringApplicationTests {
 	void contextLoads() {
 	}
 
+
 }
