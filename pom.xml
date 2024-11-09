@@ -15,7 +15,7 @@
 	<description>Projeto Spring Exemplo LIP3</description>
 	<properties>
 		<java.version>11</java.version>
-		<jacoco.version>0.5.3.201107060350</jacoco.version>
+		<jacoco.version>0.8.3</jacoco.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -50,7 +50,7 @@
 		<dependency>
 			<groupId>org.jacoco</groupId>
 			<artifactId>jacoco-maven-plugin</artifactId>
-			<version>0.5.3.201107060350</version>
+			<version>${jacoco.version}</version>
 		</dependency>
 
 	</dependencies>
