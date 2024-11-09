@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,6 +29,14 @@ public class ProdutoServiceTest {
     }
 
     @Test
+    public void saveTest(){
+        Produto produto = new Produto(1, "bolacha");
+        when(produtoRepository.save(produto)).thenReturn(produto);
+
+        assertEquals(produto.getId(), 1);
+    }
+
+    @Test
     public void findAllByIdTest(){
         Produto produto = new Produto(1, "bolacha");
         when(produtoRepository.findAllById(produto.getId())).thenReturn(produto);
@@ -36,6 +45,20 @@ public class ProdutoServiceTest {
         assertEquals(produto, produtoRetornado);
         verify(this.produtoRepository).findAllById(1L);
     }
+
+    @Test
+    public void findAllTest(){
+        Produto produto = new Produto(1, "bolacha");
+        List<Produto> listaProdutos = new ArrayList();
+        listaProdutos.add(produto);
+        when(produtoRepository.findAll()).thenReturn(listaProdutos);
+        List<Produto> listaProdutosRetornados = this.produtoService.findAll();
+
+        assertEquals(listaProdutos, listaProdutosRetornados);
+        verify(this.produtoRepository).findAll();
+    }
+
+
 
 
 }
