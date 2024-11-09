@@ -3,6 +3,7 @@ package br.com.itb.miniprojetospring.service;
 import br.com.itb.miniprojetospring.model.Produto;
 import br.com.itb.miniprojetospring.model.ProdutoRepository;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -20,17 +21,21 @@ public class ProdutoServiceTest {
     @Mock
     private ProdutoService produtoService;
 
-    @Test
-    public void findAllByIdTest(){
-
-        Produto produto = new Produto(1, "bolacha");
-        when(produtoRepository.findAllById(produto.getId())).thenReturn(produto);
-        Produto produtoRetornado = this.produtoService.findAllById(1);
-
-        assertEquals(produto, produtoRetornado);
-        verify(this.produtoRepository).findAllById(1);
+    @BeforeEach
+    void setup() {
+        produtoRepository = Mockito.mock(ProdutoRepository.class);
+        produtoService = new ProdutoService(produtoRepository);
     }
 
+    @Test
+    public void findAllByIdTest(){
+        Produto produto = new Produto(1, "bolacha");
+        when(produtoRepository.findAllById(produto.getId())).thenReturn(produto);
+        Produto produtoRetornado = this.produtoService.findAllById(1L);
+
+        assertEquals(produto, produtoRetornado);
+        verify(this.produtoRepository).findAllById(1L);
+    }
 
 
 }
