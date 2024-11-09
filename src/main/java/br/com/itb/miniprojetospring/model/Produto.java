@@ -45,7 +45,13 @@ public class Produto {
 		return nome;
 	}
 	public void setNome(String nome) {
-		this.nome = nome;
+		if(nome.equals("")){
+			this.nome = "";
+		} else if (nome != null){
+			this.nome = "";
+		} else {
+			this.nome = nome;
+		}
 	}
 	public String getDescricao() {
 		return descricao;

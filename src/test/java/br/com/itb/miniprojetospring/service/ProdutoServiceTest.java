@@ -36,7 +36,27 @@ public class ProdutoServiceTest {
         assertEquals(produto.getId(), 1);
     }
 
+    @Test
+    public void findAllByIdTest(){
+        Produto produto = new Produto(1, "bolacha");
+        when(produtoRepository.findAllById(produto.getId())).thenReturn(produto);
+        Produto produtoRetornado = this.produtoService.findAllById(1L);
 
+        assertEquals(produto, produtoRetornado);
+        verify(this.produtoRepository).findAllById(1L);
+    }
+
+    @Test
+    public void findAllTest(){
+        Produto produto = new Produto(1, "bolacha");
+        List<Produto> listaProdutos = new ArrayList();
+        listaProdutos.add(produto);
+        when(produtoRepository.findAll()).thenReturn(listaProdutos);
+        List<Produto> listaProdutosRetornados = this.produtoService.findAll();
+
+        assertEquals(listaProdutos, listaProdutosRetornados);
+        verify(this.produtoRepository).findAll();
+    }
 
 
 
